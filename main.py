@@ -27,8 +27,8 @@ data = load_data()
 model = Prophet(daily_seasonality=True)
 model.fit(data)
 
-# Faire des prédictions
-future = model.make_future_dataframe(data, periods=7, freq='D')  # Ajouter 'freq' pour spécifier la période
+# Faire des prédictions (ajusté pour la fréquence journalière)
+future = model.make_future_dataframe(data, periods=7)  # Prédictions pour 7 jours
 forecast = model.predict(future)
 
 # Afficher les résultats
