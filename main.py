@@ -1,18 +1,19 @@
 import pandas as pd
 from prophet import Prophet
+import yfinance as yf
+import datetime as dt
 
-# Example data
-data = pd.DataFrame({
-    'ds': ['2023-01-01', '2023-01-02', '2023-01-03'],
-    'y': [10, 20, 30]
-})
+start_date = dt.datetime.now() - dt.timedelta(days=365)
+end_date = dt.datetime.now()
 
-# Convert 'ds' column to datetime
-data['ds'] = pd.to_datetime(data['ds'])
 
-# Fit model
-model = Prophet()
-model.fit(data)
+def loads_data():
+    data = yf.download('AAPL', start=start_date, end=end_date)
+    data.reset_index(inplace=True)
+    data = data[['Date', 'Close']]
+    data.columns = ['ds', 'y']
+    print(data.head())
+    return data
 
-# Predict
-print(model.predict(data))
+loads_data()
+
