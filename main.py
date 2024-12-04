@@ -1,4 +1,4 @@
-
+import pandas as pd
 from prophet import Prophet
 import yfinance as yf
 import datetime as dt
@@ -27,7 +27,7 @@ data = load_data()
 model = Prophet(daily_seasonality=True)
 model.fit(data)
 
-# Faire des prédictions (ajusté pour la fréquence journalière)
+# Faire des prédictions pour les 7 prochains jours
 future = model.make_future_dataframe(data, periods=7)  # Prédictions pour 7 jours
 forecast = model.predict(future)
 
